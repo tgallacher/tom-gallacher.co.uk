@@ -18,13 +18,6 @@ const Style = createGlobalStyle`
       ${tw`text-yellow-300`};
     }
   }
-
-  main a {
-    ${tw`text-blue-700`};
-    :hover {
-      ${tw`text-blue-500`};
-    }
-  }
 `;
 
 const LayoutWrapper = styled.div`
@@ -32,7 +25,7 @@ const LayoutWrapper = styled.div`
 `;
 
 const Main = styled.main`
-  ${tw`bg-gray-100 z-0 h-full`};
+  ${tw`bg-gray-900 text-gray-100 z-0 h-full`};
 `;
 
 const AbsoluteTopRight = styled.div`

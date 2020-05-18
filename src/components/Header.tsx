@@ -27,7 +27,7 @@ const Header = () => {
   const { avatar } = useStaticQuery(profilePicQuery);
 
   return (
-    <header css={[tw`bg-gray-900 text-gray-100 shadow-2xl z-10 items-center`]}>
+    <header css={[tw`bg-gray-900 text-gray-100 z-10 items-center`]}>
       <Container>
         <nav css={[tw`grid grid-cols-5 gap-3 h-16 items-center text-center justify-between`]}>
           <div>
