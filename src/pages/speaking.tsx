@@ -16,7 +16,7 @@ export const talksQuery = graphql`
   query TalksQuery {
     allSpeakingYaml(sort: { order: DESC, fields: date }) {
       nodes {
-        date(formatString: "MMM, YYYY")
+        date(formatString: "MMMM YYYY")
         event
         title
         link
