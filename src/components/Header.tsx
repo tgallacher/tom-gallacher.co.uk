@@ -1,7 +1,7 @@
 import React from 'react';
 // import { css } from 'styled-components';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, Link } from 'gatsby';
 import Image from 'gatsby-image';
 
 import Container from './Container';
@@ -31,21 +31,21 @@ const Header = () => {
       <Container>
         <nav css={[tw`grid grid-cols-5 gap-3 h-16 items-center text-center justify-between`]}>
           <div>
-            <a href="/about">about</a>
+            <Link to="/about">about</Link>
           </div>
           <div>
-            <a href="/articles">articles</a>
+            <Link to="/articles">articles</Link>
           </div>
           <div>
-            <a href="/">
+            <Link to="/">
               <Image fixed={avatar.childImageSharp.fixed} css={[tw`rounded-full bg-center`]} />
-            </a>
+            </Link>
           </div>
           <div>
-            <a href="/speaking">speaking</a>
+            <Link to="/speaking">speaking</Link>
           </div>
           <div>
-            <a href="/workshops">workshops</a>
+            <Link to="/workshops">workshops</Link>
           </div>
         </nav>
       </Container>

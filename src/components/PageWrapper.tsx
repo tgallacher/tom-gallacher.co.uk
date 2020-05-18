@@ -1,21 +1,38 @@
 import React from 'react';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Header from './Header';
 import Container from './Container';
 
 interface Props {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
+
+const Style = createGlobalStyle`
+  ${tw`box-content font-sans text-base`};
+  a {
+    ${tw`text-yellow-500`};
+    :hover {
+      ${tw`text-yellow-300`};
+    }
+  }
+
+  main a {
+    ${tw`text-blue-700`};
+    :hover {
+      ${tw`text-blue-500`};
+    }
+  }
+`;
 
 const LayoutWrapper = styled.div`
   ${tw`flex flex-col w-full h-screen items-stretch`};
 `;
 
 const Main = styled.main`
-  ${tw`bg-yellow-400 z-0 h-full`};
+  ${tw`bg-gray-100 z-0 h-full`};
 `;
 
 const AbsoluteTopRight = styled.div`
@@ -45,6 +62,7 @@ const SocialLinks = () => (
 const PageWrapper = ({ children }: Props) => {
   return (
     <LayoutWrapper>
+      <Style />
       <AbsoluteTopRight>
         <SocialLinks />
       </AbsoluteTopRight>
