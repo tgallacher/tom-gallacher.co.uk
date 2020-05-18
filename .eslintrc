@@ -16,6 +16,15 @@
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["site/static", "./static"],
+          ["site", "./src/"]
+        ],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
     }
   },
   "rules": {

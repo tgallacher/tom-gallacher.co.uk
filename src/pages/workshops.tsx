@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { H2, H5 } from 'site/components/core';
 
 import PageWrapper from '../components/PageWrapper';
 
@@ -30,14 +31,17 @@ const WorkshopsPage = ({ data }: any) => {
 
   return (
     <PageWrapper>
-      <h1 css={tw`text-5xl mt-4 mb-16`}>Workshops</h1>
+      <H2>Workshops</H2>
 
       <ul>
         {workshops.map((wkshp: Workshop) => {
-          const title = <h3 css={tw`text-lg font-bold`}>{wkshp.name}</h3>;
+          const title = <H5 css={tw`my-0`}>{wkshp.name}</H5>;
 
           return (
-            <li key={`${wkshp.name}-${wkshp.date}`} css={tw`my-6 flex flex-grow justify-between`}>
+            <li
+              key={`${wkshp.name}-${wkshp.date}`}
+              css={tw`my-6 flex flex-grow justify-between items-baseline`}
+            >
               <div>
                 {wkshp.link == null ? (
                   title

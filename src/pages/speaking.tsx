@@ -3,6 +3,7 @@ import { graphql } from 'gatsby';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { H2, H5 } from 'site/components/core';
 import PageWrapper from '../components/PageWrapper';
 
 interface Speaking {
@@ -30,13 +31,16 @@ const TalksPage = ({ data }: any) => {
 
   return (
     <PageWrapper>
-      <h1 css={tw`text-5xl mt-4 mb-16`}>Talks</h1>
+      <H2>Talks</H2>
 
       <ul>
         {talks.map((talk: Speaking) => {
-          const title = <h3 css={tw`text-lg font-bold`}>{talk.title}</h3>;
+          const title = <H5 css={tw`my-0`}>{talk.title}</H5>;
           return (
-            <li key={`${talk.title}-${talk.date}`} css={tw`my-6 flex flex-grow justify-between`}>
+            <li
+              key={`${talk.title}-${talk.date}`}
+              css={tw`my-6 flex flex-grow justify-between items-baseline`}
+            >
               <div>
                 {talk.link == null ? (
                   title

@@ -1,8 +1,10 @@
 import React from 'react';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import PrismStyle from './PrismStyles';
+import GlobalStyles from './GlobalStyles';
 import Header from './Header';
 import Container from './Container';
 
@@ -10,22 +12,17 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Style = createGlobalStyle`
-  ${tw`box-content font-sans text-base`};
-  a {
-    ${tw`text-yellow-500`};
-    :hover {
-      ${tw`text-yellow-300`};
-    }
-  }
-`;
-
 const LayoutWrapper = styled.div`
-  ${tw`flex flex-col w-full h-screen items-stretch`};
+  ${tw`flex flex-col w-full min-h-screen items-stretch`};
 `;
 
 const Main = styled.main`
-  ${tw`bg-gray-900 text-gray-100 z-0 h-full`};
+  ${tw`bg-gray-900 text-gray-100 z-0`};
+  ${tw`min-h-screen pb-10`};
+
+  p {
+    ${tw`text-lg leading-6`};
+  }
 `;
 
 const AbsoluteTopRight = styled.div`
@@ -55,7 +52,9 @@ const SocialLinks = () => (
 const PageWrapper = ({ children }: Props) => {
   return (
     <LayoutWrapper>
-      <Style />
+      <GlobalStyles />
+      <PrismStyle />
+
       <AbsoluteTopRight>
         <SocialLinks />
       </AbsoluteTopRight>
