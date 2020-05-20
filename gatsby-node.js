@@ -1,6 +1,9 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+// without slashes
+const ARTICLES_PATH_PREFIX = 'articles';
+
 /**
  *
  * @param {*} param0
@@ -14,7 +17,7 @@ const onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       name: 'slug',
       node,
-      value
+      value: `/${ARTICLES_PATH_PREFIX}${value}`
     });
   }
 };
