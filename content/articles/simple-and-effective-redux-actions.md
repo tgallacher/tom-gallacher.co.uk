@@ -16,7 +16,7 @@ In my experience, we can solve most of the headaches using some key ingredients:
 1. Adding a simple tip to this usage (more on that below), and
 1. Adopting the Redux [ducks](https://github.com/erikras/ducks-modular-redux) proposal.
 
-## Flux Standard Actions (FSAs)
+### Flux Standard Actions (FSAs)
 
 This post is more about bringing these ingredients together, so this part will be very quick - for those interested, please read more about FSAs on the [original docs](https://github.com/redux-utilities/flux-standard-action).
 
@@ -43,7 +43,7 @@ const getUsers = {
 
 Here, like classic Redux actions, only the `type` key is required. When you want to add more data, you simply add it to the relevant field which is defined as part of the FSA spec. While this might seem a bit trivial, in JS, this can help **a lot**; particularly when you come to write your reducers for pulling out data received from upstream APIs. But maybe more of that later in a future post. For now, it is the `error` key that we can use to help simplify our life.
 
-## FSAs: A simple tip
+### FSAs: A simple tip
 
 My simple tip is specific to actions which store data; i.e. those which are typically dispatched when a side-effect has completed and we need to update our [Redux store](https://redux.js.org/basics/store) with the data. Typically, this use case is usually achieved by creating an assortment of action constants, action creators and actions to align with each part of the response process, e.g:
 
@@ -118,7 +118,7 @@ In this example, we still signal we want to make a request as before, but we hav
 
 As a result, we have fewer action creators and constants to manage; our action creators/constant are still semantic, and thus self documenting; the error flag is set automatically; the data structure -- error or otherwise -- is consistent across the full app, and so less prone to error; the required logic handling needed inside our reducers is simpler; and, we haven't added any additional dependencies to solve this problem!
 
-## Bring it together for the magic "V"
+### Bring it together for the magic "V"
 
 > Insert obligatory [90's movie reference](https://www.imdb.com/title/tt0104868/)
 
@@ -148,7 +148,7 @@ export default (prevState, action) => {
 
 Now, we've reduced the file count into 1; removed the need to export/import the constants, which can become difficult when the size of the app or number of (API) resources it needs grows; can easily see how the context of this set of actions fit together from a single view; and have simplified the maintainability and scalability -- this scales really well when increasing the action context / resource count of a given app (maybe more on that in a future post).
 
-## Wrap up
+### Wrap up
 
 And that's pretty much it. Here, we solved the common "_Redux boilerplate_" problems without adding additional dependencies to our app by adopting the following combination of simple tweaks to our Redux setup:
 

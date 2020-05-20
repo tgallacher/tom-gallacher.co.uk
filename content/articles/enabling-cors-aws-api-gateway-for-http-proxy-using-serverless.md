@@ -17,7 +17,7 @@ APIG can sit in front of a lot of different backend "_integrations_", and these 
 
 If you want to dive deeper on more around the different integration types that can be configured and how they are different, then [A Detailed Overview of AWS API Gateway](https://www.alexdebrie.com/posts/api-gateway-elements/#roadmap-the-three-basic-parts) by Alex Debrie is an excellent read.
 
-## AWS CloudSearch
+### AWS CloudSearch
 
 [AWS CloudSearch](https://aws.amazon.com/cloudsearch/) is a cloud-managed search solution, much like the popular open source tool, [ElasticSerach](https://www.elastic.co). With some simple configuration, CloudSearch provides a cost-effective solution for searching a large document base, that is globally available. One large downfall, however, is the configuration doesn't allow for configuring the custom headers returned from the API. This makes it impossible to use directly from the client, as you will hit [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) restrictions.
 
@@ -29,7 +29,7 @@ To enable CORS support, and to search our document store from a client app, we n
 
 Neither of this is possible using CloudSearch (at the time of writing, anyway), so we need APIG to save us from having to set up and deploy/manage a backend proxy--such as an AWS Lambda.
 
-## Serverless setup
+### Serverless setup
 
 As we are using the [Serverless framework](https://serverless.com) to configure and manage our serverless setup, our API Gateway customisation will live in our `serverless.yml` file.
 
@@ -58,7 +58,7 @@ With this configuration, we'll then imagine that our backend proxy should be han
 
 With our intended changes to the default APIG, we'll want to auto inject the necessary HTTP headers in the HTTP response back to the client so that our CloudSearch endpoint seemingly allows CORS requests.
 
-## Configuring CORS for our API Gateway
+### Configuring CORS for our API Gateway
 
 Serverless configs--which use the AWS provider--also allow us to configure and manage other AWS resources within the same config file, by using AWS's native CloudFormation API. The CloudFormation resources are all configured within the ["resources.Resources"](https://serverless.com/framework/docs/providers/aws/guide/resources/) node.
 
@@ -199,7 +199,7 @@ resources:
 
 The above config almost replicates our HTTP GET config, with the key difference being now that the configured `AWS::ApiGateway::Method` is a mocked endpoint: An endpoint which API Gateway will handle entirely for both receiving a request and returning a response.
 
-## Altogether
+### Altogether
 
 Combined, this should now allow us to accept incoming HTTP GET requests to `/search` from a client app, and have these proxied to a configured AWS CloudSearch backend, with the response now satisfying all necessary CORS requirements.
 
@@ -309,7 +309,7 @@ resources:
               method.response.header.Access-Control-Allow-Origin: false
 ```
 
-## Conclusion
+### Conclusion
 
 AWS's API Gateway is a powerful tool to have in your utility belt when living in a distributed (micro-) service world. It is a versatile HTTP frontend, with the ability to simplify and unify a vast range of disparate backend systems, whilst also being able to tie them all together under a single declaratively configured--and cloud managed--service; with the potential to do so all under a single custom top-level domain (_maybe a future article_).
 

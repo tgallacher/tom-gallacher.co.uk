@@ -29,7 +29,7 @@ So, effectively what I needed to achieve--much like Senøren outlined in his [bl
 1. Add this data to my Gatsby blog setup for this site
 1. Build the necessary UI elements to display the above contents
 
-## Extract & Transform git commit history into JSON
+### Extract & Transform git commit history into JSON
 
 Using `simple-git`, the first 3 items turned out to be surprisingly simple:
 
@@ -73,7 +73,7 @@ would give us a data structure that looks like (as of v1.126.0 of _simple-git_):
 
 with an object for each commit. Simples; this is exactly what we need!
 
-## Add changelog to Gatsby's data layer
+### Add changelog to Gatsby's data layer
 
 Now we have a simple way to pull out the data, we next need to figure out how to expose the JSON commit data to Gastby's internal data layer, so that we can eventually consume and display this data in our page template(s).
 
@@ -201,7 +201,7 @@ const BlogPostTemplate = ({ pageContext }) => {
 
 This will produce a similar display as you see on this site, below.
 
-## Gatsby Plugin
+### Gatsby Plugin
 
 Lastly, if you want to add a changelog to your site but don't want to go through all of the above, I converted the above to a Gatsby plugin: [gatsby-plugin-changelog-context](https://github.com/tgallacher/gatsby-plugin-changelog-context).
 
