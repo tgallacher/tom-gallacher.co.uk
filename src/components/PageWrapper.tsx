@@ -21,7 +21,7 @@ const Main = styled.main`
   ${tw`min-h-screen pb-10`};
 
   p {
-    ${tw`text-lg leading-6`};
+    ${tw`text-lg leading-loose`};
   }
 `;
 

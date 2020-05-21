@@ -46,7 +46,17 @@ const ArticlesPage = ({ data }: any) => {
             css={[tw`flex p-4 mb-6 border-solid border-gray-800 border-r-2 border-b-2`]}
             to={article.fields.slug}
           >
-            <article css={[tw`flex flex-col justify-between`]} key={articles.title}>
+            <article
+              css={[
+                tw`flex flex-col justify-between`,
+                css`
+                  p {
+                    ${tw`leading-7`};
+                  }
+                `
+              ]}
+              key={articles.title}
+            >
               <span>
                 <H4 css={tw`my-0`}>{article.frontmatter.title}</H4>
 
