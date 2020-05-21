@@ -14,11 +14,14 @@ interface Props {
 
 const LayoutWrapper = styled.div`
   ${tw`flex flex-col w-full min-h-screen items-stretch`};
+  ${tw`bg-gray-900 text-gray-100`};
 `;
 
 const Main = styled.main`
-  ${tw`bg-gray-900 text-gray-100 z-0`};
-  ${tw`min-h-screen pb-10`};
+  ${tw`z-0`};
+  ${tw`pb-10`};
+
+  min-height: calc(100vh - 4rem - 4rem); /* screen - nav height - footer height */
 
   p {
     ${tw`text-lg leading-loose`};
@@ -27,6 +30,11 @@ const Main = styled.main`
 
 const AbsoluteTopRight = styled.div`
   ${tw`hidden md:block absolute top-0 right-0 z-20`};
+`;
+
+const FooterInnerWrapper = styled.div`
+  ${tw`flex flex-grow justify-between items-center`};
+  ${tw`text-gray-700`};
 `;
 
 const SocialLinks = () => (
@@ -64,6 +72,15 @@ const PageWrapper = ({ children }: Props) => {
       <Main>
         <Container>{children}</Container>
       </Main>
+
+      <footer css={tw`h-16`}>
+        <Container>
+          <FooterInnerWrapper>
+            <div css={tw``}>Tom Gallacher &copy; {new Date().getFullYear()}</div>
+            <SocialLinks />
+          </FooterInnerWrapper>
+        </Container>
+      </footer>
     </LayoutWrapper>
   );
 };
