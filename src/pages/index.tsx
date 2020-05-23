@@ -32,7 +32,11 @@ const Index = ({ data: { avatar }, location }: any) => {
                 rotate: [0, 0, 360]
               }}
             >
-              <Image fixed={avatar.childImageSharp.fixed} css={[tw`rounded-full bg-center`]} />
+              <Image
+                fadeIn={false}
+                fixed={avatar.childImageSharp.fixed}
+                css={[tw`rounded-full bg-center`]}
+              />
             </motion.div>
 
             <h2 css={tw`mt-5`}>
