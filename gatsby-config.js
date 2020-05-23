@@ -13,6 +13,12 @@ module.exports = {
     'gatsby-plugin-changelog-context',
     'gatsby-plugin-remove-generator',
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.NODE_ENV === 'production' && 'UA-72220182-1'
+      }
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/content/assets`,
