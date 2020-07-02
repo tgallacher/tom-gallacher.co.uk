@@ -24,20 +24,20 @@ const Index = ({ data: { avatar }, location }: any) => {
       <PageWrapper>
         <div css={tw`text-center`}>
           <div css={tw`text-center`}>
-            <motion.div
+            {/* <motion.div
               animate={{
                 opacity: [0, 0.5, 1],
                 scale: [0.1, 0.1, 1],
                 y: [-999, 0, 0],
                 rotate: [0, 0, 360]
               }}
-            >
-              <Image
-                fadeIn={false}
-                fixed={avatar.childImageSharp.fixed}
-                css={[tw`rounded-full bg-center`]}
-              />
-            </motion.div>
+            > */}
+            <Image
+              fadeIn={false}
+              fixed={avatar.childImageSharp.fixed}
+              css={[tw`rounded-full bg-center`]}
+            />
+            {/* </motion.div> */}
 
             <h2 css={tw`mt-5`}>
               Hi, my name is Tom{' '}
