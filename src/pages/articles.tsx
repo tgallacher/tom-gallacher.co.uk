@@ -33,17 +33,10 @@ const ArticlesPage = ({ data }: any) => {
     <PageWrapper>
       <H2>Articles</H2>
 
-      <div
-        css={[
-          tw`grid grid-cols-2 gap-6`,
-          css`
-            grid-auto-rows: 1fr;
-          `
-        ]}
-      >
+      <div>
         {articles.map((article: any) => (
           <Link
-            css={[tw`flex p-4 mb-6 border-solid border-gray-800 border-r-2 border-b-2`]}
+            css={[tw`flex py-4 mb-8 border-solid border-gray-800 border-b-2`]}
             to={article.fields.slug}
           >
             <article
@@ -67,7 +60,7 @@ const ArticlesPage = ({ data }: any) => {
                 </div>
               </span>
 
-              <p css={tw` mt-8 text-justify text-gray-100 leading-none`}>{article.excerpt}</p>
+              <p css={tw`mt-2 text-justify text-gray-100 leading-none`}>{article.excerpt}</p>
 
               <Link
                 to={article.fields.slug}
