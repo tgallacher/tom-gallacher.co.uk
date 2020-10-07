@@ -22,7 +22,7 @@ const Index = ({ data: { avatar }, location }: any) => {
   return (
     <LocationContext.Provider value={location}>
       <PageWrapper>
-        <div css={tw`text-center`}>
+        <div css={tw`text-left`}>
           <div css={tw`text-center`}>
             {/* <motion.div
               animate={{
@@ -37,34 +37,47 @@ const Index = ({ data: { avatar }, location }: any) => {
               fixed={avatar.childImageSharp.fixed}
               css={[tw`rounded-full bg-center`]}
             />
-            {/* </motion.div> */}
+            {/* </moxtion.div> */}
 
             <h2 css={tw`mt-5`}>
-              Hi, my name is Tom{' '}
+              Welcome{' '}
               <span role="img" aria-label="wave">
                 👋
               </span>
             </h2>
           </div>
+
+          <p>This is my digital garden, where you'll find my take on everything dev and tech.</p>
           <p>
-            Welcome to my <i>digital garden</i>, where I attend to my thoughts, ramblings and
-            everything in between on anything tech-related.
-          </p>
-          <p>
-            You'll find my take on everything dev and tech. I love devOps, JavaScript/NodeJs,
-            ReactJS, Redux, Serverless/FaaS, Docker, GraphQL and IoT to name a few. This garden is
-            largely to help my future self remember how I got to wherever it is I end up, but it may
-            also help you as well.
+            I love <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>devOps</code>,{' '}
+            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
+              JavaScript/NodeJS
+            </code>
+            , <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>ReactJS</code>,{' '}
+            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>GraphQL</code>,{' '}
+            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>GatsbyJS</code>,{' '}
+            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
+              Serverles / FaaS movement
+            </code>
+            , <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>Docker</code>,{' '}
+            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
+              Raspberry pi &amp; IoT
+            </code>{' '}
+            to name a few.
           </p>
           <blockquote css={tw`text-left`}>
-            Everything here isn't necessarily complete, and in some cases may not even be correct{' '}
-            <span role="img" aria-label="sweat">
-              😅
-            </span>
-            ; although hopefully not often.
+            Everything here isn't necessarily complete, but may be a WIP. Ping me on{' '}
+            <a href="https://twitter.com/tfgallacher" rel="noopener nofollow noreferrer">
+              Twitter
+            </a>{' '}
+            if you came across something you would love me to finish off!
           </blockquote>
-
           <p>
+            This site is largely to help my future self remember how I got to wherever it is I end
+            up.
+          </p>
+          <p>But, it may also help you as well.</p>
+          {/* <p>
             This is a place for me to share and work on ideas openly, instead of hoarding and then
             losing these somewhere on my computer, notepad, sticky note, dog, etc. And to do so in
             public -- I'm a huge fan and advocate of{' '}
@@ -74,16 +87,7 @@ const Index = ({ data: { avatar }, location }: any) => {
             >
               learn in public
             </a>
-            .
-          </p>
-
-          <p>
-            If you see something that isn't finished and would like to see it happen, nudge me on{' '}
-            <a href="https://twitter.com/tfgallacher" rel="noopener nofollow noreferrer">
-              Twitter
-            </a>{' '}
-            to push it up my list.
-          </p>
+          </p> */}
         </div>
       </PageWrapper>
     </LocationContext.Provider>
