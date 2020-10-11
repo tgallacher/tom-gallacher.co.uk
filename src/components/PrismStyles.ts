@@ -60,7 +60,7 @@ const PrismStyle = createGlobalStyle`
   }
 
   .gatsby-highlight-code-line {
-    ${tw`bg-text-gray-800`};
+    ${tw`bg-gray-800`};
     display: block;
     margin: 0 -0.7em;
     padding-right: 1em;
