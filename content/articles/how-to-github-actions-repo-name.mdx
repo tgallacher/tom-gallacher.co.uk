@@ -1,0 +1,104 @@
+---
+title: 'How To: Get the REPOSITORY_NAME inside Github Actions'
+date: '2020-10-11'
+labels: github-actions, ci, quick-tip
+---
+
+If you're reading this, I'm gonna assume you are already familiar with various features of Github Actions. If you're new, or need a refresher, then I highly recommend reading [Daniel Weibel's blog post](https://itnext.io/getting-started-with-github-actions-fe94167dbc6d). He gives a great account of Github actions, and also nicely lays out the taxonomy used throughout Github Actions' terminology, e.g. "job", "workflow", "step", etc.
+
+Ok, back to the "how to". But first, we need to detail what the problem is..
+
+## Problem
+
+Github exposes a lot of details about the current repo inside your Github Actions CI/CD pipeline-- or workflow. This can be static details about the repo (owner, url, etc) or info about recent commits. This info can be very useful during your workflow.
+
+In this vast sea of data that Github exposes about the repo, one piece of (static) info that it doesn't expose natively is the name of the repo.. This may not be a problem for most, but for me I typically use the name of the repo to help coordinate and isolate certain stages of output in my workflow; be it what I log to the console, or setting up the name of my artifact(s) for identification on a shared storage solution (cloud, etc), or even just setting up a deployment folder on a host sever. Whatever it might be, I usually want this info for a few things that I am likely to do in a given Github Actions workflow.
+
+> Before going any further, it's worth pointing out here that Github generally exposes the static info about your repo in more than one way, e.g. [Environment variables](https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables) and [Context](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#contexts). While the solution we'll discuss works for both, I find it more natural to use Env vars for this stuff as the data we're talking about is static.
+
+Nevertheless, and for some unknown reason, Github doesn't seem to give us the name of the repository, directly. For example, in its [list of default Env vars](https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables), `$GITHUB_REPOSITORY_NAME` isn't something that is provided.
+
+So, how do we get it? Answer, we need a _shell_.
+
+## Solution: Shell string manipulation
+
+And as a reminder, a Github fully qualified repo URL has the following structure:
+
+```
+https://github.com/<repo_owner>/<repo_name>
+```
+
+with the `$GITHUB_REPOSITORY` Env variable giving us the _full_ repo URI: `<repo_owner>/<repo_name>`.
+
+In addition to `$GITHUB_REPOSITORY`, Github also provides us with the repo owner `$GITHUB_REPOSITORY_OWNER`. So, while the default environment variables don't include the repo name on it's own, we do have everything we need to work it out ourselves.
+
+All we need to do is to delete the repo owner and the separating `/` character, leaving us with the repo name. This is something we can easily do with [substring removal](https://tldp.org/LDP/abs/html/string-manipulation.html), which is generally a part of a shell's string manipulation syntax.
+
+For example, the syntax for substring removal on _bash_ looks something like e.g. `${string#substring}`, where `string` is the original string, and `substring` is the substring that will be removed within `string` if it exists. And this is exactly what we need.
+
+> Note: We could equally use string replacement, `${string//substring/}`, but while that works it technically isn't semantically what we want to do; plus the syntax will get a bit messy as we also want to remove a `/` char.
+
+So, using the two Env variables from Github, we could-- inside a shell --simply do something like:
+
+```sh
+REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
+```
+
+<!-- Let's use some example strings to make it a bit more concrete. If we had a repo URI of `foobar/baz`, where `foobar` is the repo owner-- either your Github username or the name of a [Github Organization](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-organizations-and-teams/about-organizations) --and `baz` is the repo name we are after.
+
+The substring removal `${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}` deletes the repo owner and the `/` separator, leaving the repo name-- `baz` in the above example. -->
+
+_Don't forget to have a trailing slash (`/`) in the curly branches, otherwise your REPO_NAME will have a `/` prefix, which is not likely what you are after._
+
+## Caveats
+
+The biggest limitation is that you need a shell environment in order for this to work. This means you can't do this within any of the direct `env` nodes within your action file, e.g. global `.env` or a job env, `.jobs.<job_id>.env`. For example, something like this won't work:
+
+```yml
+# .github/workflows/my-action.yml
+example:
+  runs-on: ubuntu-latest
+  name: Example Github Action Job
+  env:
+    REPO_NAME: ${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}
+  steps:
+    ...
+    - name: Use the custom ENV variable
+      run: |
+        echo $REPO_NAME
+```
+
+Instead, you'll have to add this as one of your jobs' [steps](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps), combined with [setting an environment variable](https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable).
+
+```yml
+# .github/workflows/my-action.yml
+example:
+  runs-on: ubuntu-latest
+  name: Example Github Action Job
+  steps:
+    - name: Set ENV variables
+      run: |
+        echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+    ...
+    - name: Use the custom ENV variable
+      run: |
+        echo $REPO_NAME
+```
+
+> I originally used the built-in `::set-env` function. However, this appears to have been [removed due to a CVE vulnerability](https://github.blog/changelog/2020-10-01-github-actions-deprecating-set-env-and-add-path-commands/).
+
+Here, we leverage a basic step which runs our custom `echo` inside a shell, allowing us to use the string manipulation; and the fact that Github persists any custom environment variables for the duration of a job. This means our `$REPO_NAME` variable will be accessible for the entire `example` job.
+
+The scope of our `$REPO_NAME` is limited to the job where it is defined, and so we would have to repeat this on all other jobs we wish to use this variable.
+
+> Note: The REPO_NAME variable isn't available in the step where we defined it-- in this example the step named "Set ENV variables", but will be available within all steps defined later within the same job --in this example our job is "Example Github Actions Job" or job id "example".
+
+## Summary
+
+And that's it. A way to access the repo name inside your Github Actions.
+
+And as someone who used GitLab and its CI, [Gitlab CI](https://docs.gitlab.com/ce/ci/), for many years, I'm very excited about this move for Github. Having the ability to view all your code, config, deployment setup and the current status of your CICD all in the same place significantly simplifies the developer workflow. This makes it faster and easier to iterate through the SDLC.
+
+Hopefully, as Github Actions matures, Github will expose a dedicated Env variable for the repo name in the future. However, until then, this simple hack should tie you over.
+
+Hopefully this hack is helpful when creating your own workflows. Feel free to ping me on Twitter if you have any questions, comments, or if you have another way of getting the repo name in your actions.
