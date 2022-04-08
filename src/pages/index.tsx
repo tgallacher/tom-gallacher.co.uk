@@ -2,9 +2,9 @@ import React from 'react';
 import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-dependencies
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
-import { motion, AnimatePresence } from 'framer-motion';
 import PageWrapper from '../components/PageWrapper';
 import LocationContext from '../components/LocationContext';
+import styled from 'styled-components';
 
 export const articlesQuery = graphql`
   query HomePageQuery {
@@ -51,16 +51,16 @@ const Index = ({ data: { avatar }, location }: any) => {
             </h2>
           </div>
 
-          <p>This is my digital garden, where you'll find my take on everything dev and tech.</p>
+          <p>This is my <a href="https://joelhooks.com/digital-garden" rel="noopener nofollow noreferrer">digial garden</a>. A collection of ramblings, thoughts and tutorials on everything dev and tech.</p>
           <p>
             I love all things tech. You'll find me mostly rambling about: <Code>devOps</Code>, <Code>JavaScript/Typescript</Code>, <Code>ReactJS</Code>, <Code>GraphQL</Code>, <Code>NodeJS</Code>, <Code>Serverless</Code>, <Code>Docker</Code>, <Code>Raspberry pi &amp; IoT</Code>, <Code>Home automation</Code> and <Code>Leadership in Tech</Code> to name a few.
           </p>
-          <blockquote css={tw`text-left`}>
-            Everything here isn't necessarily complete, but may be a WIP. Ping me on{' '}
+          <blockquote css={tw`text-left my-8`}>
+            Everything here might not be 100% complete. Ping me on{' '}
             <a href="https://twitter.com/tfgallacher" rel="noopener nofollow noreferrer">
               Twitter
-            </a>{' '}
-            if you came across something you would love me to finish off!
+            </a> or <a href="https://github.com/tgallacher/tom-gallacher.co.uk/issues" rel="noopener nofollow noreferrer">raise an issue</a> on the repo for this site
+            if you come across something you would love me to finish!
           </blockquote>
           <p>
             This site is largely to help my future self remember how I got to wherever it is I end
