@@ -18,6 +18,10 @@ export const articlesQuery = graphql`
   }
 `;
 
+const Code = styled.code`
+  ${tw`text-base p-1 text-white font-thin`}
+`;
+
 const Index = ({ data: { avatar }, location }: any) => {
   return (
     <LocationContext.Provider value={location}>
@@ -49,21 +53,7 @@ const Index = ({ data: { avatar }, location }: any) => {
 
           <p>This is my digital garden, where you'll find my take on everything dev and tech.</p>
           <p>
-            I love <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>devOps</code>,{' '}
-            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
-              JavaScript/NodeJS
-            </code>
-            , <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>ReactJS</code>,{' '}
-            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>GraphQL</code>,{' '}
-            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>GatsbyJS</code>,{' '}
-            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
-              Serverles / FaaS movement
-            </code>
-            , <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>Docker</code>,{' '}
-            <code style={{ fontSize: '1rem', color: 'black', padding: '2px' }}>
-              Raspberry pi &amp; IoT
-            </code>{' '}
-            to name a few.
+            I love all things tech. You'll find me mostly rambling about: <Code>devOps</Code>, <Code>JavaScript/Typescript</Code>, <Code>ReactJS</Code>, <Code>GraphQL</Code>, <Code>NodeJS</Code>, <Code>Serverless</Code>, <Code>Docker</Code>, <Code>Raspberry pi &amp; IoT</Code>, <Code>Home automation</Code> and <Code>Leadership in Tech</Code> to name a few.
           </p>
           <blockquote css={tw`text-left`}>
             Everything here isn't necessarily complete, but may be a WIP. Ping me on{' '}

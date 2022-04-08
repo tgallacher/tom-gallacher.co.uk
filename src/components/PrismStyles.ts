@@ -3,14 +3,14 @@ import tw from 'twin.macro'; // eslint-disable-line import/no-extraneous-depende
 
 const PrismStyle = createGlobalStyle`
   code {
-    ${tw`font-mono bg-yellow-400`};
+    ${tw`font-mono bg-gray-800`};
     font-size: inherit;
   }
 
   blockquote {
     ${tw`bg-gray-800`};
     ${tw`border-yellow-400 border-solid border-l-4`};
-    ${tw` m-0 py-2 px-4 my-4`};
+    ${tw`m-0 py-2 px-4 my-12`};
 
     p {
       ${tw`m-0`};
@@ -40,9 +40,12 @@ const PrismStyle = createGlobalStyle`
 
   /* inline-code */
   :not(pre) > code[class*='language-'] {
-    ${tw`bg-yellow-300 text-gray-900 px-2 py-1 inline-block`};
+    ${tw`bg-gray-800 text-white font-hairline px-2 py-1 inline-block`};
     ${tw`rounded-none`};
     text-shadow: none;
+  }
+  blockquote :not(pre) > code[class*='language-'] {
+    ${tw`bg-gray-700`};
   }
 
   /* Remove excessive padding between number + right bar */
@@ -56,7 +59,7 @@ const PrismStyle = createGlobalStyle`
   }
 
   .gatsby-highlight {
-    ${tw`my-8`};
+    ${tw`my-12`};
   }
 
   .gatsby-highlight-code-line {
